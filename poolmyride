@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoolMyRide - Carpooling Made Easy</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background-color: #0a192f; color: #d4d4d4; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .navbar { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 20px; background: #112240; color: #64ffda; font-size: 24px; font-weight: bold; }
+        .logo { height: 50px; }
+        .container { width: 80%; margin-top: 30px; padding: 30px; border-radius: 10px; background: #112240; box-shadow: 0px 0px 10px rgba(100, 255, 218, 0.3); }
+        .form-section { padding: 20px; }
+        label { font-weight: bold; display: block; margin-top: 10px; color: #64ffda; }
+        select, input { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #64ffda; border-radius: 5px; background: #0a192f; color: #d4d4d4; }
+        .inline-fields { display: flex; justify-content: space-between; margin-top: 20px; padding: 12px; border: 2px solid #64ffda; border-radius: 5px; background: #0a192f; }
+        .inline-fields span { background: #64ffda; color: #0a192f; padding: 5px 15px; border-radius: 5px; font-weight: bold; }
+        .submit-btn { margin-top: 25px; width: 100%; padding: 12px; background: #64ffda; color: #0a192f; font-weight: bold; border-radius: 5px; cursor: pointer; border: none; }
+        .submit-btn:hover { background: #52e6c3; }
+        .bubble-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; width: 80%; }
+        .bubble { padding: 15px 25px; border-radius: 25px; background: #64ffda; color: #0a192f; font-weight: bold; font-size: 18px; display: inline-block; box-shadow: 0px 0px 10px rgba(100, 255, 218, 0.5); transition: transform 0.3s ease; cursor: pointer; }
+        .bubble:hover { transform: scale(1.1); }
+        .back-btn { margin-top: 20px; padding: 10px 20px; background: #64ffda; color: #0a192f; font-weight: bold; border-radius: 5px; cursor: pointer; border: none; }
+        #advantageView { display: none; }
+        <style>
+    #advantageView .container {
+        max-width: 800px;
+        padding: 40px;
+        margin: 50px auto;
+        background-color: #0a1a2a;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
+    #advantageTitle {
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+    #advantageText .bubble {
+        background-color: #5fffd8;
+        color: #000;
+        padding: 15px 20px;
+        border-radius: 25px;
+        margin: 15px 0;
+        display: inline-block;
+        max-width: 90%;
+        font-size: 18px;
+    }
+    .back-btn {
+        background-color: #5fffd8;
+        color: #000;
+        padding: 12px 20px;
+        border-radius: 10px;
+        font-size: 16px;
+        margin-top: 20px;
+        cursor: pointer;
+    }
+</style>
+
+<div id="advantageView">
+    <div class="container">
+        <h2 id="advantageTitle">Price-Saving</h2>
+        <div id="advantageText">
+            <div class="bubble">Save up to 70% on travel costs.</div>
+            <div class="bubble">Split fuel expenses among riders.</div>
+            <div class="bubble">Lower maintenance fees due to reduced car usage.</div>
+            <div class="bubble">Avoid surge pricing from taxis and ride-hailing apps.</div>
+            <div class="bubble">Leverage long-term savings on insurance with less vehicle usage.</div>
+        </div>
+        <button class="back-btn" onclick="goBack()">⬅ Back</button>
+    </div>
+</div>
+
+<script>
+    function goBack() {
+        document.getElementById("advantageView").style.display = "none";
+    }
+</script>
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <img src="poolmyride-logo.png" alt="PoolMyRide Logo" class="logo">
+        <span id="pageTitle">PoolMyRide - Smarter Carpooling</span>
+    </div>
+
+    <!-- Main Page -->
+    <div id="mainView">
+        <!-- Form Section -->
+        <div class="container">
+            <div class="form-section">
+                <form id="rideForm">
+                    <label>From</label>
+                    <select id="fromLocation" required>
+                        <option value="">Select City</option>
+                    </select>
+
+                    <label>To</label>
+                    <select id="toLocation" required>
+                        <option value="">Select City</option>
+                    </select>
+
+                    <label>No. of People (Max 6)</label>
+                    <input type="number" id="numPeople" min="1" max="6" required>
+
+                    <div class="inline-fields">
+                        <label>Distance:</label>
+                        <span id="distance">0 km</span>
+                        <label>Price per Person:</label>
+                        <span id="price">₹0</span>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Find Ride</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="bubble-container">
+            <div class="bubble" onclick="showAdvantage('Price-Saving')">💰 Price-Saving</div>
+            <div class="bubble" onclick="showAdvantage('Security')">🔒 Security</div>
+            <div class="bubble" onclick="showAdvantage('Efficient')">⚡ Efficient</div>
+            <div class="bubble" onclick="showAdvantage('Eco-Friendly')">🌿 Eco-Friendly</div>
+            <div class="bubble" onclick="showAdvantage('Reduce Traffic')">🚗 Reduce Traffic</div>
+        </div>
+    </div>
+
+    <!-- Advantage Page -->
+    <div id="advantageView">
+        <div class="container">
+            <h2 id="advantageTitle"></h2>
+            <div id="advantageText"></div>
+            <button class="back-btn" onclick="goBack()">⬅ Back</button>
+        </div>
+    </div>
+
+    <script>
+       const cities = [
+    "Hyderabad", "Bangalore", "Mumbai", "Chennai", "Delhi",
+    "Kolkata", "Pune", "Jaipur", "Ahmedabad", "Lucknow",
+    "Surat", "Patna", "Bhopal", "Indore", "Chandigarh",
+    "Nagpur", "Coimbatore", "Thiruvananthapuram", "Visakhapatnam", "Ludhiana"
+];
+ const distances = {
+    "Hyderabad-Bangalore": 570, "Bangalore-Hyderabad": 570, "Hyderabad-Mumbai": 710, "Mumbai-Hyderabad": 710,
+    "Hyderabad-Chennai": 630, "Chennai-Hyderabad": 630, "Hyderabad-Delhi": 1570, "Delhi-Hyderabad": 1570,
+    "Hyderabad-Kolkata": 1450, "Kolkata-Hyderabad": 1450, "Hyderabad-Pune": 560, "Pune-Hyderabad": 560,
+    "Hyderabad-Jaipur": 1380, "Jaipur-Hyderabad": 1380, "Hyderabad-Ahmedabad": 1250, "Ahmedabad-Hyderabad": 1250,
+    "Hyderabad-Lucknow": 1300, "Lucknow-Hyderabad": 1300, "Hyderabad-Surat": 1100, "Surat-Hyderabad": 1100,
+    "Hyderabad-Patna": 1460, "Patna-Hyderabad": 1460, "Hyderabad-Bhopal": 900, "Bhopal-Hyderabad": 900,
+    "Hyderabad-Indore": 960, "Indore-Hyderabad": 960, "Hyderabad-Chandigarh": 1700, "Chandigarh-Hyderabad": 1700,
+    "Hyderabad-Nagpur": 500, "Nagpur-Hyderabad": 500, "Hyderabad-Coimbatore": 900, "Coimbatore-Hyderabad": 900,
+    "Hyderabad-Thiruvananthapuram": 1200, "Thiruvananthapuram-Hyderabad": 1200, "Hyderabad-Visakhapatnam": 620, "Visakhapatnam-Hyderabad": 620,
+    "Hyderabad-Ludhiana": 1800, "Ludhiana-Hyderabad": 1800,
+
+    "Bangalore-Mumbai": 980, "Mumbai-Bangalore": 980, "Bangalore-Chennai": 350, "Chennai-Bangalore": 350,
+    "Bangalore-Delhi": 2100, "Delhi-Bangalore": 2100, "Bangalore-Kolkata": 1870, "Kolkata-Bangalore": 1870,
+    "Bangalore-Pune": 840, "Pune-Bangalore": 840, "Bangalore-Jaipur": 2000, "Jaipur-Bangalore": 2000,
+    "Bangalore-Ahmedabad": 1600, "Ahmedabad-Bangalore": 1600, "Bangalore-Lucknow": 1800, "Lucknow-Bangalore": 1800,
+    "Bangalore-Surat": 1300, "Surat-Bangalore": 1300, "Bangalore-Patna": 2070, "Patna-Bangalore": 2070,
+    "Bangalore-Bhopal": 1400, "Bhopal-Bangalore": 1400, "Bangalore-Indore": 1400, "Indore-Bangalore": 1400,
+    "Bangalore-Chandigarh": 2300, "Chandigarh-Bangalore": 2300, "Bangalore-Nagpur": 1100, "Nagpur-Bangalore": 1100,
+    "Bangalore-Coimbatore": 360, "Coimbatore-Bangalore": 360, "Bangalore-Thiruvananthapuram": 730, "Thiruvananthapuram-Bangalore": 730,
+    "Bangalore-Visakhapatnam": 1000, "Visakhapatnam-Bangalore": 1000, "Bangalore-Ludhiana": 2400, "Ludhiana-Bangalore": 2400,
+
+    "Mumbai-Chennai": 1330, "Chennai-Mumbai": 1330, "Mumbai-Delhi": 1400, "Delhi-Mumbai": 1400,
+    "Mumbai-Kolkata": 2020, "Kolkata-Mumbai": 2020, "Mumbai-Pune": 150, "Pune-Mumbai": 150,
+    "Mumbai-Jaipur": 1140, "Jaipur-Mumbai": 1140, "Mumbai-Ahmedabad": 530, "Ahmedabad-Mumbai": 530,
+    "Mumbai-Lucknow": 1400, "Lucknow-Mumbai": 1400, "Mumbai-Surat": 290, "Surat-Mumbai": 290,
+    "Mumbai-Patna": 1800, "Patna-Mumbai": 1800, "Mumbai-Bhopal": 780, "Bhopal-Mumbai": 780,
+    "Mumbai-Indore": 600, "Indore-Mumbai": 600, "Mumbai-Chandigarh": 1650, "Chandigarh-Mumbai": 1650,
+    "Mumbai-Nagpur": 800, "Nagpur-Mumbai": 800, "Mumbai-Coimbatore": 1300, "Coimbatore-Mumbai": 1300,
+    "Mumbai-Thiruvananthapuram": 1650, "Thiruvananthapuram-Mumbai": 1650, "Mumbai-Visakhapatnam": 1400, "Visakhapatnam-Mumbai": 1400,
+    "Mumbai-Ludhiana": 1700, "Ludhiana-Mumbai": 1700 };
+
+      const advantages = {
+    "Price-Saving": [
+        "Save up to 70% on travel costs.",
+        "Split fuel expenses among riders.",
+        "Lower maintenance fees due to reduced car usage.",
+        "Avoid surge pricing from taxis and ride-hailing apps.",
+        "Leverage long-term savings on insurance with less vehicle usage."
+    ],
+    "Security": [
+        "Ride only with verified users through ID checks.",
+        "GPS tracking ensures safety and transparency.",
+        "Trusted ride-sharing system with user ratings and reviews.",
+        "Emergency contact and SOS feature for quick assistance.",
+        "End-to-end encryption of personal details for privacy."
+    ],
+    "Efficient": [
+        "Faster ride matches with AI-based pooling.",
+        "Less waiting time compared to public transport.",
+        "Seamless integration with real-time traffic updates.",
+        "Productivity boost—use travel time for work or relaxation.",
+        "Dedicated routes to optimize travel time and fuel consumption."
+    ],
+    "Eco-Friendly": [
+        "Reduce carbon emissions by up to 50%.",
+        "Fewer cars on the road lead to less pollution.",
+        "Encourages a sustainable lifestyle with reduced fuel dependency.",
+        "Greener cities with improved air quality.",
+        "Supports environmental initiatives by reducing fossil fuel consumption."
+    ],
+    "Reduce Traffic": [
+        "Less congestion on busy roads and highways.",
+        "Faster commute times for everyone in the city.",
+        "Improved road safety with fewer vehicles.",
+        "Decreases dependency on single-occupancy vehicles.",
+        "Contributes to better urban planning and space management."
+    ]
+};
+
+
+        function populateCities() {
+            cities.forEach(city => {
+                document.getElementById("fromLocation").add(new Option(city, city));
+                document.getElementById("toLocation").add(new Option(city, city));
+            });
+        }
+
+        document.getElementById('rideForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const from = document.getElementById('fromLocation').value, to = document.getElementById('toLocation').value, numPeople = parseInt(document.getElementById('numPeople').value);
+            if (from === to) return alert("Choose different cities.");
+            const key = `${from}-${to}`, distance = distances[key] || 0, pricePerPerson = Math.max((distance / 10) * 100 / numPeople, 1000);
+            document.getElementById('distance').textContent = distance + " km";
+            document.getElementById('price').textContent = "₹" + Math.round(pricePerPerson);
+        });
+
+        function showAdvantage(feature) { document.getElementById("mainView").style.display = "none"; document.getElementById("advantageView").style.display = "block"; document.getElementById("advantageTitle").textContent = feature; document.getElementById("advantageText").innerHTML = advantages[feature].map(text => `<div class="bubble">${text}</div>`).join(""); }
+        function goBack() { document.getElementById("mainView").style.display = "block"; document.getElementById("advantageView").style.display = "none"; }
+
+        window.onload = populateCities;
+    </script>
+
+</body>
+</html>
+
+
+
+
+</body>
+</html>
+
